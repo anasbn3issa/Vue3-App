@@ -4,13 +4,13 @@
             <div class="col">
                 <h1 class="mt-5">Login</h1>
                 <hr>
-                    <form method="post" action="/login" class="needs-validation" novalidate>
+                    <FormTag>
                         <TextInput name="email" type="email" label="Email" placeholder="Enter email" required="required" autocomplete="email" />
                         <TextInput name="password" type="password" label="Password" placeholder="Enter password" required="required" autocomplete="current-password" />
                         <CheckInput name="remember" label="Remember me" />
                         <input type="submit" class="btn btn-primary" value="Login">
 
-                    </form>
+                    </FormTag>
                     <hr>
             </div>
         </div>
@@ -21,12 +21,14 @@
 
 import TextInput from './forms/TextInput.vue';
 import CheckInput from './forms/CheckInput.vue';
+import FormTag from './forms/FormTag.vue';
 
 export default {
     name: 'LoginScreen',
     components: {
         TextInput,
-        CheckInput
+        CheckInput,
+        FormTag
     },
     mounted() {
         (function () {
