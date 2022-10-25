@@ -1,33 +1,24 @@
 <template>
-    <form :action="action" autocomplete="off" :method="method" class="needs-validation" novalidate>
+    <form @submit.prevent="submit" :event="event" :ref="name" :action="action" autocomplete="off" :method="method" class="needs-validation" novalidate>
         <slot></slot>
     </form>
 </template>
 
 <script>
-    export default {
-        name: 'FormTag',
-        props: ["action", "method"],
-        mounted() {
-            (function () {
-            'use strict'
+export default {
+    name: 'FormTag',
+    props: ["action", "method","event","name"],
+    methods: {
+        submit() {
+            let myForm = this.$refs[this.$props.name];
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
+            if (myForm.checkValidity() === true) {
+                console.log(this.$props.event, this.$refs[this.$props.name]);
+                this.$emit(this.$props.event);
+            }
 
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-                })
-            })()
+            myForm.classList.add('was-validated');
         }
-    }
+    },
+}
 </script>
