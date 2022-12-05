@@ -11,7 +11,7 @@
                 </li>
                 <li>
                     <router-link v-if="store.token == ''" class="nav-item nav-link" to="/login">Login</router-link>
-                    <router-link v-else class="nav-item nav-link" to="/logout">Logout</router-link>
+                    <a href="javascript:void(0)" v-else class="nav-item nav-link" @click="logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -20,12 +20,34 @@
 
 <script>
 import { store } from './store'
-
+import router from '../router'
 export default {
     data() {
         return {
             store: store,
         }
     },
+    methods: {
+        logout() {
+            // call the backend to logout
+            const payload = {
+                token: store.token,
+            }
+            const requestOptions = {
+                method: "POST",
+                body: JSON.stringify(payload),
+            }
+            fetch("http://localhost:8081/users/logout", requestOptions)
+            .then((response) => response.json())
+            .then((response) => {
+                if ( response.error){
+                    console.log(response.message);
+                } else {
+                    store.token = "";
+                    router.push("/login");
+                }
+            })
+        }
+    }
 }
 </script>
