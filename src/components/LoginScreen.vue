@@ -75,7 +75,27 @@ export default {
                 } else {
                     console.log(data);
                     store.token = "ABCDEFG";
+
+                    store.user = {
+                        id: data.user.id,
+                        first_name: data.user.first_name,
+                        last_name: data.user.last_name,
+                        email: data.user.email,
+                    }
                     router.push("/");
+                    // save info to cookie
+                    let date = new Date();
+                    let expDays = 1;
+                    date.setTime(date.getTime() + 1000 * 60 * 60 * 24 * expDays);
+                    const expires = "expires=" + date.toUTCString();
+                    // set the cookie 
+                    document.cookie = "_site_data="
+                    + JSON.stringify(data.data)
+                    + "; "
+                    + expires 
+                    + ";path=/ SameSite=strict; Secure";  
+
+
                 }
             })
         }
