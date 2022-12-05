@@ -10,9 +10,22 @@
                     <router-link class="nav-item nav-link active" to="/">Home</router-link>
                 </li>
                 <li>
-                    <router-link class="nav-item nav-link" to="/login">Login</router-link>
+                    <router-link v-if="store.token == ''" class="nav-item nav-link" to="/login">Login</router-link>
+                    <router-link v-else class="nav-item nav-link" to="/logout">Logout</router-link>
                 </li>
             </ul>
         </div>
     </nav>
 </template>
+
+<script>
+import { store } from './store'
+
+export default {
+    data() {
+        return {
+            store: store,
+        }
+    },
+}
+</script>

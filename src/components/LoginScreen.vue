@@ -23,6 +23,8 @@
                     </text-input>
 
                     <hr>
+
+                    Email : {{email}}
                     <input type="submit" class="btn btn-primary" value="Login">
                 </form-tag>
             </div>
@@ -33,6 +35,7 @@
 <script>
 import FormTag from './forms/FormTag.vue'
 import TextInput from './forms/TextInput.vue'
+import { store } from './store'
 
 export default {
     name: 'LoginScreen',
@@ -44,6 +47,7 @@ export default {
         return {
             email: "",
             password: "",
+            store: store,
         }
     },
     methods: {
@@ -65,8 +69,10 @@ export default {
             .then((data) => {
                 if (data.error) {
                     console.log("Error:", data.message);
+                    console.log(data);
                 } else {
                     console.log(data);
+                    store.token = "ABCDEFG";
                 }
             })
         }
