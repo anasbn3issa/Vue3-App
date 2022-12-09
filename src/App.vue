@@ -44,7 +44,32 @@ export default {
         email: cookieData.user.email,
       }
     }
+  },
+  mounted() {
+    const payload = {
+      foo: "bar",
+
+    }
+
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", "Bearer " + store.token);
+    
+    const requestOptions = {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(payload),
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:8081/admin/foo", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => console.log("error", error));
   }
+  
 
 }
 </script>
