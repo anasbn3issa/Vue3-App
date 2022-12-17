@@ -62,7 +62,7 @@ export default {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8081/admin/foo", requestOptions)
+    fetch(process.env.VUE_APP_API_URL + "/admin/foo", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
